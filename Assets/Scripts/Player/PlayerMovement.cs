@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector2 OldPos;
 
+    public Joystick joystickControls;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
         SprintMechanic();
         //BasicMovement();
         MovementPlayer();
+        JoystickController();
 
         if(AxisManager.HorizontalAxis != 0 || AxisManager.VerticalAxis != 0)
         {
@@ -102,6 +105,49 @@ public class PlayerMovement : MonoBehaviour
         if (AxisManager.HorizontalAxis < 0)
         {
             transform.position = new Vector2(transform.position.x - moveSpeed * Time.deltaTime, transform.position.y);
+        }
+    }
+
+    private void JoystickController()
+    {
+        //Joystick up
+        if (joystickControls.Vertical >= 0.8f)
+        {
+            AxisManager.VerticalAxis = 1f;
+        }
+        else if (joystickControls.Vertical >= 0 && joystickControls.Vertical < 0.8f)
+        {
+            AxisManager.VerticalAxis = 0f;
+        }
+
+        //Joystick down
+        if (joystickControls.Vertical <= -0.8f)
+        {
+            AxisManager.VerticalAxis = -1f;
+        }
+        else if (joystickControls.Vertical <= 0 && joystickControls.Vertical > -0.8f)
+        {
+            AxisManager.VerticalAxis = 0f;
+        }
+
+        //Joystick right
+        if (joystickControls.Horizontal >= 0.8f)
+        {
+            AxisManager.HorizontalAxis = 1f;
+        }
+        else if (joystickControls.Horizontal >= 0 && joystickControls.Horizontal < 0.8f)
+        {
+            AxisManager.HorizontalAxis = 0f;
+        }
+
+        //Joystick right
+        if (joystickControls.Horizontal <= -0.8f)
+        {
+            AxisManager.HorizontalAxis = -1f;
+        }
+        else if (joystickControls.Horizontal <= 0 && joystickControls.Horizontal > -0.8f)
+        {
+            AxisManager.HorizontalAxis = 0f;
         }
     }
 
