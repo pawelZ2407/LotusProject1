@@ -680,6 +680,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4511354085115096598, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6277741171191243812}
+    - target: {fileID: 8139096922899422415, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3824235680699827958}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36e593805f2c3b84293a226ee533bcf0, type: 3}
 --- !u!224 &7927414781596319880 stripped
