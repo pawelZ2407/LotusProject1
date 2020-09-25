@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Joystick joystickControls;
 
+    public PlayerAnimationControl playerAnimationController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,9 +59,8 @@ public class PlayerMovement : MonoBehaviour
         SendPosition();
         SprintMechanic();
         MovementPlayer();
-        JoystickController();
 
-        if(AxisManager.HorizontalAxis != 0 || AxisManager.VerticalAxis != 0)
+        if(joystickControls.Horizontal != 0 || joystickControls.Vertical != 0)
         {
             PlaySoundFX();
         }
@@ -88,67 +89,33 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovementPlayer()
     {
-        if (AxisManager.VerticalAxis > 0)
+        if (joystickControls.Vertical > 0.5f)
         {
-            transform.position = new Vector2(transform.position.x, transform.position.y + moveSpeed * Time.deltaTime);
+            transform.position = new Vector2(transform.position.x, transform.position.y +  moveSpeed * Time.deltaTime);
+            playerAnimationController.SwitchAnimation("Up");
         }
-        if (AxisManager.VerticalAxis < 0)
+        if (joystickControls.Vertical < -0.5f)
         {
-            transform.position = new Vector2(transform.position.x, transform.position.y - moveSpeed * Time.deltaTime);
+            transform.position = new Vector2(transform.position.x, transform.position.y -  moveSpeed * Time.deltaTime);
+            playerAnimationController.SwitchAnimation("Down");
         }
-        if (AxisManager.HorizontalAxis > 0)
+        if (joystickControls.Horizontal > 0.5f)
         {
             transform.position = new Vector2(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y);
+            playerAnimationController.SwitchAnimation("Right");
         }
-        if (AxisManager.HorizontalAxis < 0)
+        if (joystickControls.Horizontal < -0.5f)
         {
             transform.position = new Vector2(transform.position.x - moveSpeed * Time.deltaTime, transform.position.y);
+            playerAnimationController.SwitchAnimation("Left");
+        }
+        if (joystickControls.Vertical == 0 & joystickControls.Horizontal == 0)
+        {
+            playerAnimationController.SwitchAnimation("Idle");
         }
     }
 
-    private void JoystickController()
-    {
-        //Joystick up
-        if (joystickControls.Vertical >= 0.5f)
-        {
-            AxisManager.VerticalAxis = 1f;
-        }
-        else if (joystickControls.Vertical >= 0 && joystickControls.Vertical < 0.5f)
-        {
-            AxisManager.VerticalAxis = 0f;
-        }
-
-        //Joystick down
-        if (joystickControls.Vertical <= -0.5f)
-        {
-            AxisManager.VerticalAxis = -1f;
-        }
-        else if (joystickControls.Vertical <= 0 && joystickControls.Vertical > -0.5f)
-        {
-            AxisManager.VerticalAxis = 0f;
-        }
-
-        //Joystick right
-        if (joystickControls.Horizontal >= 0.5f)
-        {
-            AxisManager.HorizontalAxis = 1f;
-        }
-        else if (joystickControls.Horizontal >= 0 && joystickControls.Horizontal < 0.5f)
-        {
-            AxisManager.HorizontalAxis = 0f;
-        }
-
-        //Joystick right
-        if (joystickControls.Horizontal <= -0.5f)
-        {
-            AxisManager.HorizontalAxis = -1f;
-        }
-        else if (joystickControls.Horizontal <= 0 && joystickControls.Horizontal > -0.5f)
-        {
-            AxisManager.HorizontalAxis = 0f;
-        }
-    }
-
+    
     void SprintMechanic()
     {
         regenCount -= Time.deltaTime;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AxisControl : MonoBehaviour
 {
-
+    /*
     public float VerticalAxis;
 
     public float HorizontalAxis;
@@ -48,4 +48,5 @@ public class AxisControl : MonoBehaviour
     {
         HorizontalAxis = 0f;
     }
+    */
 }

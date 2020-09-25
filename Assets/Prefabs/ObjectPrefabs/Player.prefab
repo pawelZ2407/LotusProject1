@@ -423,6 +423,7 @@ MonoBehaviour:
   AxisManager: {fileID: 0}
   OldPos: {x: 0, y: 0}
   joystickControls: {fileID: 4495261391407264263}
+  playerAnimationController: {fileID: 6277741171191243801}
 --- !u!114 &6277741171191243801
 MonoBehaviour:
   m_ObjectHideFlags: 0
