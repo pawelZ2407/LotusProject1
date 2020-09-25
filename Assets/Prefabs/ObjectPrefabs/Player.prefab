@@ -424,6 +424,7 @@ MonoBehaviour:
   OldPos: {x: 0, y: 0}
   joystickControls: {fileID: 4495261391407264263}
   playerAnimationController: {fileID: 6277741171191243801}
+  joyStickDeadZone: 0.5
   debugJoystick: 1
   joystickDebugger: {fileID: 4964739060361312363}
   debugJoystickVertical: {fileID: 6272587959593185391}
