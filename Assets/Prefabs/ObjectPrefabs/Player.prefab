@@ -691,6 +691,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5907003124096563230}
+    - target: {fileID: 4007767875617599113, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6277741171191243812}
+    - target: {fileID: 4007767875617599113, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SendDisconnect
+      objectReference: {fileID: 0}
     - target: {fileID: 4511354085115096598, guid: 36e593805f2c3b84293a226ee533bcf0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
