@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
     {
         SendPosition();
         SprintMechanic();
-        MovementPlayer();
+        PlayerControls();
 
         if(joystickControls.Horizontal != 0 || joystickControls.Vertical != 0)
         {
@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void MovementPlayer()
+    private void PlayerControls()
     {
         //Note: Use the joyStickDeadZone float to set when the joystick will respond (value between 0.1 and 1). 
         //Example: 0.5f will enable movement when you move the joystick halfway and more towards the edge.
