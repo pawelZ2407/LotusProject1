@@ -1,4 +1,4 @@
-# Lotus Project 1
+# Lotus Project1
 
 First Lotus Project. Join Lotus Development Team on [Discord](https://discord.gg/kdfxXx)
 
