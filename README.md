@@ -13,7 +13,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 Install [Unity Hub](https://unity3d.com/es/get-unity/download).  
-Inside **Unity Hub** go to **"Installs"** tab and click **"add"**, then select **2019.4.11f1** (LTS) version, click next, and select **"Android Build Support"**.  
-Clone/Download the repo. In Unity Hub, go to **"Projects"** tab, and click **"add"**, then **locate** the folder you cloned/downloaded.  
-After that you'll the project ready to open with Unity **2019.4.11f1**.  
+Inside **Unity Hub** install Unity **2019.4.11f1** (LTS) version, with **"Android Build Support"**.  
+Clone/Download the repo and **locate** it, in Unity Hub, **"Projects"** tab.  
+After that you'll the project ready to open with Unity **2019.4.11f1** !.  
 
