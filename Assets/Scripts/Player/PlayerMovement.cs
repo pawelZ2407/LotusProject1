@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -29,9 +30,15 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector2 OldPos;
 
+    //Oulsen 25-09-2020
     public Joystick joystickControls;
-
     public PlayerAnimationControl playerAnimationController;
+
+    //Debug joystick stuff
+    public bool debugJoystick;
+    public GameObject joystickDebugger;
+    public TextMeshProUGUI debugJoystickVertical;
+    public TextMeshProUGUI debugJoystickHorizontal;
 
     // Start is called before the first frame update
     void Start()
@@ -112,6 +119,19 @@ public class PlayerMovement : MonoBehaviour
         if (joystickControls.Vertical == 0 & joystickControls.Horizontal == 0)
         {
             playerAnimationController.SwitchAnimation("Idle");
+        }
+
+        //Debug Joystick
+
+        if (debugJoystick)
+        {
+            joystickDebugger.SetActive(true);
+            debugJoystickHorizontal.text = "Horizontal value: " + joystickControls.Horizontal.ToString("#.####");
+            debugJoystickVertical.text = "Vertical value: " + joystickControls.Vertical.ToString("#.####");
+        }
+        else if (!debugJoystick)
+        {
+            joystickDebugger.SetActive(false);
         }
     }
 
