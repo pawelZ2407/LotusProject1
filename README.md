@@ -1,6 +1,6 @@
-# Lotus Project1
+# Lotus Project
 
-First Lotus Project  
+Another Lotus Project  
 **Join Lotus Development Team** on [Discord](https://discord.gg/kdfxXx)  
 
 ## Getting Started
