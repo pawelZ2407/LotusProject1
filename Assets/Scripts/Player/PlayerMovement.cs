@@ -55,9 +55,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         SendPosition();
-        regenCount -= Time.deltaTime;
         SprintMechanic();
-        //BasicMovement();
         MovementPlayer();
         JoystickController();
 
@@ -151,18 +149,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void BasicMovement()
-    {
-        if (Vector2.Distance(transform.position, movePoint.position) <= 0.1f)
-        {
-            if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(AxisManager.HorizontalAxis, AxisManager.VerticalAxis, 0f), 0.1f, whatStopsMovement))
-            {
-                movePoint.position += new Vector3(AxisManager.HorizontalAxis, AxisManager.VerticalAxis, 0f);
-            }
-        }
-    }
     void SprintMechanic()
     {
+        regenCount -= Time.deltaTime;
         StaminaBar.localScale = new Vector3(Stamina / 10, 1);
 
         if (Sprinting == true && Stamina > 0)
