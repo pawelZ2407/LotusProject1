@@ -53,10 +53,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         SendPosition();
-        transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
         regenCount -= Time.deltaTime;
         SprintMechanic();
-        BasicMovement();
+        //BasicMovement();
+        MovementPlayer();
+
         if(AxisManager.HorizontalAxis != 0 || AxisManager.VerticalAxis != 0)
         {
             PlaySoundFX();
@@ -74,6 +75,26 @@ public class PlayerMovement : MonoBehaviour
     {
         Sprinting = true;
         NetManager.SendPacket("SprintingSound");
+    }
+
+    private void MovementPlayer()
+    {
+        if (AxisManager.VerticalAxis > 0)
+        {
+            transform.position = new Vector2(transform.position.x, transform.position.y + moveSpeed * Time.deltaTime);
+        }
+        if (AxisManager.VerticalAxis < 0)
+        {
+            transform.position = new Vector2(transform.position.x, transform.position.y - moveSpeed * Time.deltaTime);
+        }
+        if (AxisManager.HorizontalAxis > 0)
+        {
+            transform.position = new Vector2(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y);
+        }
+        if (AxisManager.HorizontalAxis < 0)
+        {
+            transform.position = new Vector2(transform.position.x - moveSpeed * Time.deltaTime, transform.position.y);
+        }
     }
 
     void BasicMovement()
