@@ -73,8 +73,16 @@ public class PlayerMovement : MonoBehaviour
 
     public void EnableSprint()
     {
-        Sprinting = true;
-        NetManager.SendPacket("SprintingSound");
+        if (Sprinting)
+        {
+            Sprinting = false;
+            moveSpeed = WalkSpeed;
+        }
+        else if (!Sprinting)
+        {
+            Sprinting = true;
+            NetManager.SendPacket("SprintingSound");
+        }
     }
 
     private void MovementPlayer()
