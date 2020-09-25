@@ -425,7 +425,7 @@ MonoBehaviour:
   joystickControls: {fileID: 4495261391407264263}
   playerAnimationController: {fileID: 6277741171191243801}
   joyStickDeadZone: 0.5
-  debugJoystick: 1
+  debugJoystick: 0
   joystickDebugger: {fileID: 4964739060361312363}
   debugJoystickVertical: {fileID: 6272587959593185391}
   debugJoystickHorizontal: {fileID: 707075706066263399}
@@ -691,11 +691,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5907003124096563230}
-    - target: {fileID: 1732020218192151948, guid: 36e593805f2c3b84293a226ee533bcf0,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectFireball
-      objectReference: {fileID: 0}
     - target: {fileID: 4511354085115096598, guid: 36e593805f2c3b84293a226ee533bcf0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -711,11 +706,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5907003124096563230}
-    - target: {fileID: 9134015061338592234, guid: 36e593805f2c3b84293a226ee533bcf0,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectShield
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36e593805f2c3b84293a226ee533bcf0, type: 3}
 --- !u!224 &7927414781596319880 stripped
