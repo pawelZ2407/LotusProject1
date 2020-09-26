@@ -22,6 +22,9 @@ public class PlayerCombat : MonoBehaviour
 
     public int SelectedAbility;
 
+    public Vector2 mousePos;
+    public ParticleSystem lightningAttack;
+
     // Use this for initialization
     void Start()
     {
@@ -43,7 +46,7 @@ public class PlayerCombat : MonoBehaviour
 
         ManageTouchs();
         ManageCooldowns();
-
+        Attack();
     }
 
     public void Damage(float dmg)
@@ -119,5 +122,34 @@ public class PlayerCombat : MonoBehaviour
             NetManager.SendPacket("abi" + "1");
         }
         ShieldCooldown = 0;
+    }
+
+    private void Attack()
+    {
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            ParticleSystem newParticle = Instantiate(lightningAttack, transform.position, transform.rotation);
+            newParticle.Play();
+        }
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            if (Input.GetTouch(i).position.x < Screen.width / 4 && Input.GetTouch(i).position.y < Screen.height / 2 || Input.GetTouch(i).position.x > 7 * (Screen.width / 8))
+            {
+            }
+            else
+            {
+                Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.GetTouch(i).position.x, Screen.height - Input.GetTouch(i).position.y));
+                Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
+                Vector2 direction = target - myPos;
+                direction.y = -direction.y;
+                direction.Normalize();
+                Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+                ParticleSystem newParticle = Instantiate(lightningAttack, transform.position, rotation);
+                newParticle.Play();
+            }
+            
+        }
+        
     }
 }
