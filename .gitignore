@@ -69,11 +69,3 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
-Assembly-CSharp.csproj
-Packages/packages-lock.json
-Assembly-CSharp-Editor.csproj
-obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache
-Assets/Joystick Pack/Documentaion.pdf.meta
-Assembly-CSharp-Editor.csproj
-Assembly-CSharp-Editor.csproj
-Assets/Joystick Pack/Documentaion.pdf
