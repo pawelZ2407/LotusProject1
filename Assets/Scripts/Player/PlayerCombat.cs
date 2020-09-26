@@ -34,7 +34,6 @@ public class PlayerCombat : MonoBehaviour
         InvSystem = transform.GetComponent<InventorySystem>();
         FireCooldownBar = GameObject.Find("Cooldowns").transform.Find("FireBall").transform.Find("Bar").transform;
         ShieldCooldownBar = GameObject.Find("Cooldowns").transform.Find("Shield").transform.Find("Bar").transform;
-        HealthBar = transform.Find("Canvas").transform.Find("HealthBar").transform.Find("Bar").transform;
     }
 
     void Update()

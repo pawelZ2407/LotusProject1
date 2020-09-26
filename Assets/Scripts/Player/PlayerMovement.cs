@@ -2,40 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Player movement")]
     public float moveSpeed;
     public float WalkSpeed = 5;
     public float RunSpeed = 7.5f;
 
+    [Header("Player sprinting")]
+    public bool Sprinting;
+    public Image sprintingButtonBG;
+
+    [Header("Player stats")]
     public float Stamina;
     Transform StaminaBar;
     public float regenCount;
-
-    float PacketCooldown;
     public float CooldownBaseValue = 0.02f;
 
-    public Transform movePoint;
+    [Header("Player audio")]
     public List<AudioSource> FX = new List<AudioSource>();
 
-    public LayerMask whatStopsMovement;
+    //Oulsen 25-09-2020
+    [Header("Joystick settings")]
+    public Joystick joystickControls;
+    public PlayerAnimationControl playerAnimationController;
+    public float joyStickDeadZone = 0.6f;
 
-    NetworkManager NetManager;
+    //Debug joystick stuff
+    [Header("Joystick debugger")]
+    public bool debugJoystick;
+    public GameObject joystickDebugger;
+    public TextMeshProUGUI debugJoystickVertical;
+    public TextMeshProUGUI debugJoystickHorizontal;
 
-    public bool Sprinting;
-
-    public AxisControl AxisManager;
-
+    [Header("Network")]
     public Vector2 OldPos;
 
+    //Private variables
+    private float PacketCooldown;
+    NetworkManager NetManager;
     // Start is called before the first frame update
     void Start()
     {
         NetManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
-        AxisManager = GameObject.Find("AxisManager").GetComponent<AxisControl>();
         StaminaBar = GameObject.Find("StaminaBar").transform.Find("Bar").transform;
-        movePoint = transform.Find("PlayerMovePoint");
         for (int i = 0; i < transform.Find("PlayerFX").childCount; i++)
         {
             FX.Add(transform.Find("PlayerFX").GetChild(i).GetComponent<AudioSource>());
@@ -43,7 +56,6 @@ public class PlayerMovement : MonoBehaviour
         PacketCooldown = 0;
         Stamina = 10;
         moveSpeed = WalkSpeed;
-        movePoint.parent = null;
         Sprinting = false;
         OldPos.x = transform.position.x;
         OldPos.y = transform.position.y;
@@ -53,11 +65,10 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         SendPosition();
-        transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
-        regenCount -= Time.deltaTime;
         SprintMechanic();
-        BasicMovement();
-        if(AxisManager.HorizontalAxis != 0 || AxisManager.VerticalAxis != 0)
+        PlayerControls();
+
+        if(joystickControls.Horizontal != 0 || joystickControls.Vertical != 0)
         {
             PlaySoundFX();
         }
@@ -72,22 +83,110 @@ public class PlayerMovement : MonoBehaviour
 
     public void EnableSprint()
     {
-        Sprinting = true;
-        NetManager.SendPacket("SprintingSound");
-    }
-
-    void BasicMovement()
-    {
-        if (Vector2.Distance(transform.position, movePoint.position) <= 0.1f)
+        if (Sprinting)
         {
-            if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(AxisManager.HorizontalAxis, AxisManager.VerticalAxis, 0f), 0.1f, whatStopsMovement))
-            {
-                movePoint.position += new Vector3(AxisManager.HorizontalAxis, AxisManager.VerticalAxis, 0f);
-            }
+            Sprinting = false;
+            moveSpeed = WalkSpeed;
+            sprintingButtonBG.color = Color.white;
+        }
+        else if (!Sprinting)
+        {
+            Sprinting = true;
+            NetManager.SendPacket("SprintingSound");
+            sprintingButtonBG.color = Color.yellow;
         }
     }
+
+    private void PlayerControls()
+    {
+        //Note Oulsen: Use the joyStickDeadZone float in the inspector to set when the joystick will respond (value between 0.1 and 1). 
+        //Example: 0.5f will enable movement when you move the joystick halfway and more towards the edge.
+        //Note Oulsen: There is probably a better way to code this with less code, but it's a working system now.
+
+        //MoveUp
+        if (joystickControls.Vertical > joyStickDeadZone && joystickControls.Horizontal < joyStickDeadZone && joystickControls.Horizontal > -joyStickDeadZone)
+        {
+            transform.position = new Vector2(transform.position.x, transform.position.y +  moveSpeed * Time.deltaTime);
+            playerAnimationController.SwitchAnimation("Up");
+        }
+        //MoveDown
+        if (joystickControls.Vertical < -joyStickDeadZone && joystickControls.Horizontal < joyStickDeadZone && joystickControls.Horizontal > -joyStickDeadZone)
+        {
+            transform.position = new Vector2(transform.position.x, transform.position.y -  moveSpeed * Time.deltaTime);
+            playerAnimationController.SwitchAnimation("Down");
+        }
+        //MoveRight
+        if (joystickControls.Horizontal > joyStickDeadZone && joystickControls.Vertical < joyStickDeadZone && joystickControls.Vertical > -joyStickDeadZone)
+        {
+            transform.position = new Vector2(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y);
+            playerAnimationController.SwitchAnimation("Right");
+        }
+        //MoveLeft
+        if (joystickControls.Horizontal < -joyStickDeadZone && joystickControls.Vertical < joyStickDeadZone && joystickControls.Vertical > -joyStickDeadZone)
+        {
+            transform.position = new Vector2(transform.position.x - moveSpeed * Time.deltaTime, transform.position.y);
+            playerAnimationController.SwitchAnimation("Left");
+        }
+
+        //MoveDiagonally (UpRight)
+        if (joystickControls.Vertical > joyStickDeadZone && joystickControls.Horizontal > joyStickDeadZone)
+        {
+            float movespeedCorrected = moveSpeed / 1.5f;
+            transform.position = new Vector2(transform.position.x + movespeedCorrected * Time.deltaTime, transform.position.y + movespeedCorrected * Time.deltaTime);
+
+            //Needs a new animation
+            playerAnimationController.SwitchAnimation("Up");
+        }
+        //MoveDiagonally (UpLeft)
+        if (joystickControls.Vertical > joyStickDeadZone && joystickControls.Horizontal < -joyStickDeadZone)
+        {
+            float movespeedCorrected = moveSpeed / 1.5f;
+            transform.position = new Vector2(transform.position.x - movespeedCorrected * Time.deltaTime, transform.position.y + movespeedCorrected * Time.deltaTime);
+
+            //Needs a new animation
+            playerAnimationController.SwitchAnimation("Up");
+        }
+        //MoveDiagonally (DownRight)
+        if (joystickControls.Vertical < -joyStickDeadZone && joystickControls.Horizontal > joyStickDeadZone)
+        {
+            float movespeedCorrected = moveSpeed / 1.5f;
+            transform.position = new Vector2(transform.position.x + movespeedCorrected * Time.deltaTime, transform.position.y - movespeedCorrected * Time.deltaTime);
+
+            //Needs a new animation
+            playerAnimationController.SwitchAnimation("Down");
+        }
+        //MoveDiagonally (DownLeft)
+        if (joystickControls.Vertical < -joyStickDeadZone && joystickControls.Horizontal < -joyStickDeadZone)
+        {
+            float movespeedCorrected = moveSpeed / 1.5f;
+            transform.position = new Vector2(transform.position.x - movespeedCorrected * Time.deltaTime, transform.position.y - movespeedCorrected * Time.deltaTime);
+
+            //Needs a new animation
+            playerAnimationController.SwitchAnimation("Down");
+        }
+
+        //Idle (no input)
+        if (joystickControls.Vertical < joyStickDeadZone && joystickControls.Vertical > -joyStickDeadZone && joystickControls.Horizontal < joyStickDeadZone && joystickControls.Horizontal > -joyStickDeadZone)
+        {
+            playerAnimationController.SwitchAnimation("Idle");
+        }
+
+        //Debug Joystick values
+        if (debugJoystick)
+        {
+            joystickDebugger.SetActive(true);
+            debugJoystickHorizontal.text = "Horizontal value: " + joystickControls.Horizontal.ToString("#.####");
+            debugJoystickVertical.text = "Vertical value: " + joystickControls.Vertical.ToString("#.####");
+        }
+        else if (!debugJoystick)
+        {
+            joystickDebugger.SetActive(false);
+        }
+    }
+
     void SprintMechanic()
     {
+        regenCount -= Time.deltaTime;
         StaminaBar.localScale = new Vector3(Stamina / 10, 1);
 
         if (Sprinting == true && Stamina > 0)

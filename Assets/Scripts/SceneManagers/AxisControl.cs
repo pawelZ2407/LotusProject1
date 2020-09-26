@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class AxisControl : MonoBehaviour
 {
-
+    /*
+     * 
+     * Unnecessary code after new plauermovement with joystick. See PlayerMovement.cs
+     * 
+     * 
     public float VerticalAxis;
 
     public float HorizontalAxis;
@@ -48,4 +52,5 @@ public class AxisControl : MonoBehaviour
     {
         HorizontalAxis = 0f;
     }
+    */
 }
