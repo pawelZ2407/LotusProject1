@@ -461,7 +461,7 @@ MonoBehaviour:
   ShieldCooldown: 0
   ShieldCooldownBar: {fileID: 0}
   Health: 0
-  HealthBar: {fileID: 0}
+  HealthBar: {fileID: 7927414781834644329}
   SelectedAbility: 0
 --- !u!114 &3824235680699827958
 MonoBehaviour:
@@ -541,6 +541,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6277741171191243814}
     m_Modifications:
+    - target: {fileID: 152615407268612355, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 152615407276566968, guid: 36e593805f2c3b84293a226ee533bcf0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -651,11 +656,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 152615408749593505, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 152615408859721577, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1732020218192151948, guid: 36e593805f2c3b84293a226ee533bcf0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5907003124096563230}
+    - target: {fileID: 1732020218192151948, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 7927414781219118671}
     - target: {fileID: 4007767875617599113, guid: 36e593805f2c3b84293a226ee533bcf0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -756,6 +776,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7927414781219118671 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 152615407654369151, guid: 36e593805f2c3b84293a226ee533bcf0,
+    type: 3}
+  m_PrefabInstance: {fileID: 7790637302505695536}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!224 &7927414781834644329 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 152615408177586777, guid: 36e593805f2c3b84293a226ee533bcf0,
+    type: 3}
+  m_PrefabInstance: {fileID: 7790637302505695536}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2027720713477489050 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8087917817477032106, guid: 36e593805f2c3b84293a226ee533bcf0,
