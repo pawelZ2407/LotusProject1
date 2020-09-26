@@ -39,12 +39,11 @@ public class PlayerMovement : MonoBehaviour
     public TextMeshProUGUI debugJoystickHorizontal;
 
     [Header("Network")]
-    NetworkManager NetManager;
     public Vector2 OldPos;
 
     //Private variables
     private float PacketCooldown;
-
+    NetworkManager NetManager;
     // Start is called before the first frame update
     void Start()
     {
