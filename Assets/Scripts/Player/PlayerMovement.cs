@@ -3,34 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Player movement")]
     public float moveSpeed;
     public float WalkSpeed = 5;
     public float RunSpeed = 7.5f;
 
+    [Header("Player sprinting")]
+    public bool Sprinting;
+    public Image sprintingButtonBG;
+
+    [Header("Player stats")]
     public float Stamina;
     Transform StaminaBar;
     public float regenCount;
-
-    float PacketCooldown;
     public float CooldownBaseValue = 0.02f;
 
-    public Transform movePoint;
+    [Header("Player audio")]
     public List<AudioSource> FX = new List<AudioSource>();
 
-    public LayerMask whatStopsMovement;
-
-    NetworkManager NetManager;
-
-    public bool Sprinting;
-
-    public AxisControl AxisManager;
-
-    public Vector2 OldPos;
-
     //Oulsen 25-09-2020
+    [Header("Joystick settings")]
     public Joystick joystickControls;
     public PlayerAnimationControl playerAnimationController;
     public float joyStickDeadZone = 0.6f;
@@ -42,13 +38,18 @@ public class PlayerMovement : MonoBehaviour
     public TextMeshProUGUI debugJoystickVertical;
     public TextMeshProUGUI debugJoystickHorizontal;
 
+    [Header("Network")]
+    NetworkManager NetManager;
+    public Vector2 OldPos;
+
+    //Private variables
+    private float PacketCooldown;
+
     // Start is called before the first frame update
     void Start()
     {
         NetManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
-        AxisManager = GameObject.Find("AxisManager").GetComponent<AxisControl>();
         StaminaBar = GameObject.Find("StaminaBar").transform.Find("Bar").transform;
-        movePoint = transform.Find("PlayerMovePoint");
         for (int i = 0; i < transform.Find("PlayerFX").childCount; i++)
         {
             FX.Add(transform.Find("PlayerFX").GetChild(i).GetComponent<AudioSource>());
@@ -56,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
         PacketCooldown = 0;
         Stamina = 10;
         moveSpeed = WalkSpeed;
-        movePoint.parent = null;
         Sprinting = false;
         OldPos.x = transform.position.x;
         OldPos.y = transform.position.y;
@@ -88,18 +88,21 @@ public class PlayerMovement : MonoBehaviour
         {
             Sprinting = false;
             moveSpeed = WalkSpeed;
+            sprintingButtonBG.color = Color.white;
         }
         else if (!Sprinting)
         {
             Sprinting = true;
             NetManager.SendPacket("SprintingSound");
+            sprintingButtonBG.color = Color.yellow;
         }
     }
 
     private void PlayerControls()
     {
-        //Note: Use the joyStickDeadZone float to set when the joystick will respond (value between 0.1 and 1). 
+        //Note Oulsen: Use the joyStickDeadZone float in the inspector to set when the joystick will respond (value between 0.1 and 1). 
         //Example: 0.5f will enable movement when you move the joystick halfway and more towards the edge.
+        //Note Oulsen: There is probably a better way to code this with less code, but it's a working system now.
 
         //MoveUp
         if (joystickControls.Vertical > joyStickDeadZone && joystickControls.Horizontal < joyStickDeadZone && joystickControls.Horizontal > -joyStickDeadZone)
@@ -182,7 +185,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    
     void SprintMechanic()
     {
         regenCount -= Time.deltaTime;

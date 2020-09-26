@@ -284,7 +284,7 @@ Transform:
   - {fileID: 6688577294421891965}
   - {fileID: 7457005962122932582}
   m_Father: {fileID: 6277741171191243814}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6277741171191243811
 GameObject:
@@ -321,7 +321,6 @@ Transform:
   m_LocalPosition: {x: -4.5, y: 0.5, z: -0.49869654}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
-  - {fileID: 6277741171464482394}
   - {fileID: 7927414781596319880}
   - {fileID: 4148941707766500608}
   m_Father: {fileID: 0}
@@ -411,17 +410,12 @@ MonoBehaviour:
   moveSpeed: 10
   WalkSpeed: 4
   RunSpeed: 7
+  Sprinting: 0
+  sprintingButtonBG: {fileID: 2027720713477489050}
   Stamina: 0
   regenCount: 0
   CooldownBaseValue: 0.02
-  movePoint: {fileID: 6277741171464482394}
   FX: []
-  whatStopsMovement:
-    serializedVersion: 2
-    m_Bits: 256
-  Sprinting: 0
-  AxisManager: {fileID: 0}
-  OldPos: {x: 0, y: 0}
   joystickControls: {fileID: 4495261391407264263}
   playerAnimationController: {fileID: 6277741171191243801}
   joyStickDeadZone: 0.5
@@ -429,6 +423,7 @@ MonoBehaviour:
   joystickDebugger: {fileID: 4964739060361312363}
   debugJoystickVertical: {fileID: 6272587959593185391}
   debugJoystickHorizontal: {fileID: 707075706066263399}
+  OldPos: {x: 0, y: 0}
 --- !u!114 &6277741171191243801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,40 +530,10 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!1 &6277741171464482393
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6277741171464482394}
-  m_Layer: 0
-  m_Name: PlayerMovePoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6277741171464482394
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6277741171464482393}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6277741171191243814}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7790637302505695536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -614,7 +579,7 @@ PrefabInstance:
     - target: {fileID: 152615407276566968, guid: 36e593805f2c3b84293a226ee533bcf0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 152615407276566968, guid: 36e593805f2c3b84293a226ee533bcf0,
         type: 3}
@@ -701,11 +666,66 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SendDisconnect
       objectReference: {fileID: 0}
+    - target: {fileID: 4480452957690268347, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4511354085115096598, guid: 36e593805f2c3b84293a226ee533bcf0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6277741171191243812}
+    - target: {fileID: 4511354085115096598, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 2027720713477489050}
+    - target: {fileID: 4511354085115096598, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511354085115096598, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511354085115096598, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511354085115096598, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511354085115096598, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511354085115096598, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511354085115096598, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416288885092595163, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087917817477032106, guid: 36e593805f2c3b84293a226ee533bcf0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8139096922899422415, guid: 36e593805f2c3b84293a226ee533bcf0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -734,6 +754,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2027720713477489050 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8087917817477032106, guid: 36e593805f2c3b84293a226ee533bcf0,
+    type: 3}
+  m_PrefabInstance: {fileID: 7790637302505695536}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4964739060361312363 stripped
