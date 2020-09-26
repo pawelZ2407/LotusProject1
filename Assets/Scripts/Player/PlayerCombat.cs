@@ -24,6 +24,8 @@ public class PlayerCombat : MonoBehaviour
 
     public Vector2 mousePos;
     public ParticleSystem lightningAttack;
+    private float lightningCountdown;
+    public float lightningTimer;
 
     // Use this for initialization
     void Start()
@@ -46,7 +48,7 @@ public class PlayerCombat : MonoBehaviour
 
         ManageTouchs();
         ManageCooldowns();
-        Attack();
+        LightningAttack();
     }
 
     public void Damage(float dmg)
@@ -124,8 +126,11 @@ public class PlayerCombat : MonoBehaviour
         ShieldCooldown = 0;
     }
 
-    private void Attack()
+    private void LightningAttack()
     {
+
+        lightningCountdown -= Time.deltaTime;
+
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -137,7 +142,7 @@ public class PlayerCombat : MonoBehaviour
             if (Input.GetTouch(i).position.x < Screen.width / 4 && Input.GetTouch(i).position.y < Screen.height / 2 || Input.GetTouch(i).position.x > 7 * (Screen.width / 8))
             {
             }
-            else
+            else if(lightningCountdown <= 0)
             {
                 Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.GetTouch(i).position.x, Screen.height - Input.GetTouch(i).position.y));
                 Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
@@ -147,6 +152,7 @@ public class PlayerCombat : MonoBehaviour
                 Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
                 ParticleSystem newParticle = Instantiate(lightningAttack, transform.position, rotation);
                 newParticle.Play();
+                lightningCountdown = lightningTimer;
             }
             
         }
