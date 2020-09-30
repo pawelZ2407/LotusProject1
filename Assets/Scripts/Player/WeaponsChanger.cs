@@ -18,8 +18,8 @@ public class WeaponsChanger : MonoBehaviour {
             {
             Vector2 defaultPosLeft = new Vector2(-playerAttack.MeleeWeapon[playerAttack.ChoosedWeapon].transform.localPosition.x, playerAttack.MeleeWeapon[playerAttack.ChoosedWeapon].transform.localPosition.y);
             Vector2 defaultPosRight = new Vector2(playerAttack.MeleeWeapon[playerAttack.ChoosedWeapon].transform.localPosition.x, playerAttack.MeleeWeapon[playerAttack.ChoosedWeapon].transform.localPosition.y);
-            //Vector2 defaultPosUp = new Vector2(playerAttack.MeleeWeapon[playerAttack.ChoosedWeapon].transform.localPosition.x, playerAttack.MeleeWeapon[playerAttack.ChoosedWeapon].transform.localPosition.y);
-            //Vector2 defaultPosDown = new Vector2(playerAttack.MeleeWeapon[playerAttack.ChoosedWeapon].transform.localPosition.x, playerAttack.MeleeWeapon[playerAttack.ChoosedWeapon].transform.localPosition.y);
+            /*Vector2 defaultPosUp = new Vector2(playerAttack.MeleeWeapon[playerAttack.ChoosedWeapon].transform.localPosition.x, playerAttack.MeleeWeapon[playerAttack.ChoosedWeapon].transform.localPosition.y);
+            Vector2 defaultPosDown = new Vector2(playerAttack.MeleeWeapon[playerAttack.ChoosedWeapon].transform.localPosition.x, playerAttack.MeleeWeapon[playerAttack.ChoosedWeapon].transform.localPosition.y);*/
             if ( animator.GetBool("MovingRight") == true && inAttackMode == false)
                 {
                 currentWeapon.transform.localPosition = defaultPosRight;
